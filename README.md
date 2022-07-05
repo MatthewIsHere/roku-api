@@ -1,4 +1,4 @@
-## Roku-js
+## roku-js
 
 `roku-js` is a complete Typescript implementation of the Roku "External Control Protocol" API. Built using ECMAScript modules, this package is compatible in the browser out-of-the-box!
 
@@ -79,7 +79,7 @@ discover(foundRoku)
 function discover(callback: (device: Roku) => void) uses Roku SSDP api to discover local network roku devices. runs callback with a Roku instance argument when found. function self-destructs after five seconds of discovery.
 
 # Deep Linking
-Deep linking is a key feature of the ECP AP because it allows you to open specific resources on applications. This can be used for playing certain movies or videos on streaming services. Deep linking is implemented using the launch method and providing a contentID parameter; the contentID value is dependent on the app's own logic
+Deep linking is a key feature of the ECP API because it allows you to open specific resources on applications. This can be used for playing certain movies or videos on streaming services. Deep linking is implemented using the launch method and providing a contentID parameter; the contentID value is dependent on the app's own logic
 Example:
 ```
 import { Roku } from "roku-js"
