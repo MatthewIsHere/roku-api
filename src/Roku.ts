@@ -5,6 +5,8 @@ interface AppInfo {
     version: string
 }
 
+const wait = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
+
 function XML(text: string): Promise<any> {
     const parser = new xml2js.Parser()
     return parser.parseStringPromise(text)
@@ -29,6 +31,11 @@ class Roku {
         const response = await fetch(url, {
             method
         })
+        if (response.status === 503) { // Redo request
+            await wait(1000)
+            console.warn(`Request: ${url} returned 503; trying again`)
+            return this.request(query, post)
+        }
         if (!response.ok) {
             throw new Error(`${response.status}: Roku ECP path not defined: ${method} ${url}`)
         }
@@ -84,9 +91,9 @@ class Roku {
         let player: { [key: string]: string | object | boolean } = {}
         // shucking data from parsed xml into clean object
         player.state = data.player["$"].state
-        player.bandwidth = data.player.plugin[0]["$"].bandwidth
         if (data.player.hasOwnProperty("plugin")) {
             player.id = data.player.plugin[0]["$"].id
+            player.bandwidth = data.player.plugin[0]["$"].bandwidth
             player.name = data.player.plugin[0]["$"].name
         }
         // These properties were found when playing YouTube specifically. I am unsure if these are standard
@@ -101,13 +108,12 @@ class Roku {
         if (data.player.hasOwnProperty("position")) {
             player.position = data.player.position[0]
         }
-        // Pretty sure this is YouTube exclusive
         if (data.player.hasOwnProperty("is_live")) {
             player.live = Boolean(data.player.is_live[0])
         }
         return player
     }
-    public async icon(appid: string) {
+    public async icon(appid: string): Promise<Blob> {
         const response = await this.request(["query", "icon", appid])
         const image = await response.blob()
         return image
