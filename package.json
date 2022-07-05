@@ -1,5 +1,5 @@
 {
-  "name": "roku-js",
+  "name": "roku-api",
   "version": "1.0.0",
   "description": "A simple, yet functional implementation of the Roku External Control Protocol for roku-enabled devices",
   "main": "dist/index.js",
