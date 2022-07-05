@@ -1,3 +1,4 @@
 import Roku from "./Roku.js"
+import discover from "./discover.js"
 
-export { Roku }
+export { Roku, discover }
