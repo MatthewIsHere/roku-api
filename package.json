@@ -13,7 +13,7 @@
     "ecp"
   ],
   "author": "Matthew Lyon",
-  "license": "MIT",
+  "license": "GPL-3.0+",
   "devDependencies": {
     "@types/node": "^18.0.1",
     "@types/xml2js": "^0.4.11",
