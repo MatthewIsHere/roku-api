@@ -20,6 +20,11 @@ to import (ESM-only):
 ```
 import { Roku, discover } from "roku-api"
 ```
+
+### **Bugs**
+* The XML parser used in this version uses some server side functions, and does not currently work in the browser. This breaks all information based functions while using on the frontend.
+* The previous bug however does not matter because of the Cross-Origin-Resource-Sharing restrictions in the browser, which limit the use of GET requests to private IPs. Keypresses and other POST request resources still work in the browser
+
 # Usage
 
 ### Roku Class:
